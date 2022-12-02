@@ -1,0 +1,76 @@
+<div>
+  <h1 id="topTitle">Supply Admin App</h1>
+
+  <div class="create">
+    <h2>Create</h2>
+    Full Name:
+    <select [(ngModel)]="selectedCustomer">
+      <option *ngFor="let customer of customers" [ngValue]="customer">
+        {{ customer.fullName }}
+      </option>
+    </select>
+    Product:
+    <select [(ngModel)]="selectedProduct">
+      <option *ngFor="let product of products" [ngValue]="product">
+        {{ product.description }}
+      </option>
+    </select>
+    Qty:
+    <input type="number" [(ngModel)]="selectedQty" />
+    Shipping Mode:
+    <select [(ngModel)]="selectedShipMode">
+      <option value="Second Class">Second Class</option>
+      <option value="Standard Class">Standard Class</option>
+      <option value="First Class">First Class</option>
+      <option value="Overnight Express">Overnight Express</option>
+    </select>
+  </div>
+  <button class="crudBtn createbtn" (click)="createOrder()">
+    Create new Order
+  </button>
+
+  <div class="update" *ngIf="loaded">
+    <h2>Update</h2>
+    Select an Order:
+    <select
+      [(ngModel)]="selectedOrderToUpdate"
+      (change)="changedUpdate()"
+    >
+      <option *ngFor="let order of orders" [ngValue]="order">
+        {{ order.prod.description }} X {{ order.quantity }}
+      </option>
+    </select>
+    Product:
+    <select [(ngModel)]="updatedOrder.prod">
+      <option *ngFor="let product of products" [ngValue]="product">
+        {{ product.description }}
+      </option>
+    </select>
+    Full Name:
+    <select [(ngModel)]="updatedOrder.custID">
+      <option *ngFor="let customer of customers" [ngValue]="customer.custID">
+        {{ customer.fullName }} - {{ customer.custID }}
+      </option>
+    </select>
+    Quantity or Product:
+    <input type="number" [(ngModel)]="updatedOrder.quantity" />
+    Shipping Mode:
+    <select [(ngModel)]="updatedOrder.shipMode">
+      <option value="Second Class">Second Class</option>
+      <option value="Standard Class">Standard Class</option>
+      <option value="First Class">First Class</option>
+      <option value="Overnight Express">Overnight Express</option>
+    </select>
+  </div>
+  <button class="crudBtn updatebtn" (click)="updateOrder()">Update</button>
+
+  <div class="delete">
+    <h2>Delete</h2>
+    <select [(ngModel)]="selectedOrderToDelete">
+      <option *ngFor="let order of orders" [ngValue]="order">
+        {{ order.prod.description }} X {{ order.quantity }} - {{ order.custID }}
+      </option>
+    </select>
+  </div>
+  <button class="crudBtn deletebtn" (click)="deleteOrder()">Delete</button>
+</div>
